@@ -44,7 +44,7 @@ public class ReportGenerator {
 		try {
 
 			TemplatesNonStatic templates = new TemplatesNonStatic();
-			String path = System.getProperty("user.dir")+File.separator+"reports"+File.separator+"mds"+File.separator;
+			String path = "F:\\work\\work\\Git\\SLAReport\\GradleDyReports\\reports\\mds\\";
 			
 			File theDir = new File(path);
 			if(!theDir.exists()) {
@@ -52,7 +52,7 @@ public class ReportGenerator {
 				boolean result = false;
 				
 				try {
-					theDir.mkdir();
+					theDir.mkdirs();
 					result = true;
 				} catch (SecurityException e) {
 					e.printStackTrace();
