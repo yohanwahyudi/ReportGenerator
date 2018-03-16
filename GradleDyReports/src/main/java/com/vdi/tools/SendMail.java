@@ -29,7 +29,7 @@ public class SendMail {
 
 	public void mail() {
 		// Recipient's email ID needs to be mentioned.
-		String to = "yohan.wahyudi@visionet.co.id";
+		String to = "yohan.wahyudi@visionet.co.id, wahyudi.yohan1@gmail.com";
 		
 		// Sender's email ID needs to be mentioned
 		String from = "vice@visionet.co.id";
@@ -58,7 +58,8 @@ public class SendMail {
 			message.setFrom(new InternetAddress(from));
 
 			// Set To: header field of the header.
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			InternetAddress[] parse = InternetAddress.parse(to, true);
+			message.addRecipients(Message.RecipientType.TO, parse);
 
 			// Set Subject: header field
 			message.setSubject("ITOP-MDS Support Agent Daily Monitoring");
