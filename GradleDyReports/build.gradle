@@ -1,0 +1,50 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+jar {
+    baseName = 'reporttest'
+    version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    //maven{url "http://jasperreports.sourceforge.net/maven2/"}
+    //maven{url "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/"}
+}
+
+dependencies {
+	compile('log4j:log4j:1.2.17')
+	
+	compile('org.jsoup:jsoup:1.11.2')	
+	
+	compile('javax.mail:javax.mail-api:1.6.0')
+    compile('com.sun.mail:javax.mail:1.6.0')
+    
+    //http
+	compile('org.apache.httpcomponents:httpclient:4.5.2')
+	
+	//compile('com.h2database:h2')
+    compile('org.mariadb.jdbc:mariadb-java-client:2.0.3')
+    compile('mysql:mysql-connector-java:5.1.45')
+    
+    //dynamicreports
+    compile('net.sourceforge.dynamicreports:dynamicreports-core:5.1.0')
+    compile('net.sourceforge.dynamicreports:dynamicreports-adhoc:5.1.0')
+	compile('net.sourceforge.dynamicreports:dynamicreports-googlecharts:5.1.0')
+	compile('com.lowagie:itext:2.1.7')
+	//compile('ar.com.fdvs:DynamicJasper:5.1.0')
+	
+	compile('org.quartz-scheduler:quartz:2.3.0')
+	
+	//spring
+	compile('org.springframework:spring-core:4.3.13.RELEASE')
+	compile('org.springframework:spring-jdbc:4.3.13.RELEASE')
+	compile('org.springframework:spring-oxm:4.3.13.RELEASE')
+	compile('org.springframework:spring-context-support:4.3.13.RELEASE')
+	//springbatch
+	compile('org.springframework.batch:spring-batch-core:4.0.0.RELEASE')
+	compile('org.springframework.batch:spring-batch-infrastructure:4.0.0.RELEASE')
+}
