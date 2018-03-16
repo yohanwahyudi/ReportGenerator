@@ -44,7 +44,26 @@ public class ReportGenerator {
 		try {
 
 			TemplatesNonStatic templates = new TemplatesNonStatic();
-			outputstream = new FileOutputStream(filename);
+			String path = System.getProperty("user.dir")+File.separator+"reports"+File.separator+"mds"+File.separator;
+			
+			File theDir = new File(path);
+			if(!theDir.exists()) {
+				logger.debug("Creating directory "+theDir.getAbsolutePath());
+				boolean result = false;
+				
+				try {
+					theDir.mkdir();
+					result = true;
+				} catch (SecurityException e) {
+					e.printStackTrace();
+				}
+				
+				if(result) {
+					logger.debug("Directory "+theDir.getAbsolutePath()+" is created.");
+				}
+			}
+			
+			outputstream = new FileOutputStream(path+filename);
 					
 			report()
 
