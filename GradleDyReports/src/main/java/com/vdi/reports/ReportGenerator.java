@@ -32,6 +32,7 @@ public class ReportGenerator {
 	private final Collection<Incident> list = new ArrayList<>();
 	private static final Logger logger = Logger.getLogger(ReportGenerator.class);
 	private OutputStream outputstream = null;
+	private String path;
 	private String filename;
 
 	public ReportGenerator(Collection<Incident> incident, String fileName) {
@@ -44,7 +45,7 @@ public class ReportGenerator {
 		try {
 
 			TemplatesNonStatic templates = new TemplatesNonStatic();
-			String path = "F:\\work\\work\\Git\\SLAReport\\GradleDyReports\\reports\\mds\\";
+			path = "F:\\work\\work\\Git\\SLAReport\\GradleDyReports\\reports\\mds\\";
 			
 			File theDir = new File(path);
 			if(!theDir.exists()) {
@@ -98,6 +99,14 @@ public class ReportGenerator {
 		
 		return dataSource;
 
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 }

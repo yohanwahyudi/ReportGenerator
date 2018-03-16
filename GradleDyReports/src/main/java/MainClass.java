@@ -24,7 +24,7 @@ public class MainClass {
 		
 		try {
 //			JsoupParse parse = new JsoupParse(GetHttpURLData.readUrl("http://172.17.6.21/itop/web/api/Query1_8b09fc98eb98edcff9700ee747064cd6.php"));
-			 JsoupParse parse = new JsoupParse(FileTools.readFile("mar.txt"));
+			JsoupParse parse = new JsoupParse(FileTools.readFile("mar.txt"));
 			mapper = new JsoupMapper(parse.getRecordsList(), "daily");
 
 			int size = 0;

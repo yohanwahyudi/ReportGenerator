@@ -14,6 +14,7 @@ import javax.activation.*;
 public class SendMail {
 
 	private final Logger logger = Logger.getLogger(SendMail.class);
+	private String path;
 	private String filename;
 	
 	public SendMail(String fileName) {
@@ -78,7 +79,8 @@ public class SendMail {
 
 			// Part two is attachment
 			BodyPart messageAttachmentBodyPart = new MimeBodyPart();
-			DataSource source = new FileDataSource(filename);
+			path = "F:\\work\\work\\Git\\SLAReport\\GradleDyReports\\reports\\mds\\"; 
+			DataSource source = new FileDataSource(path+filename);
 			messageAttachmentBodyPart.setDataHandler(new DataHandler(source));
 			messageAttachmentBodyPart.setFileName(filename);
 			multipart.addBodyPart(messageAttachmentBodyPart);
@@ -92,5 +94,13 @@ public class SendMail {
 		} catch (MessagingException mex) {
 			mex.printStackTrace();
 		}
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 }
