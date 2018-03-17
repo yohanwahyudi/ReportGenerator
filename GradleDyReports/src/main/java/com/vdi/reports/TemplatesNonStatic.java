@@ -47,11 +47,14 @@ import static net.sf.dynamicreports.report.builder.DynamicReports.*;
 import java.awt.Color;
 import java.util.Locale;
 
+import com.lowagie.text.Font;
+
 import net.sf.dynamicreports.report.base.expression.AbstractValueFormatter;
 import net.sf.dynamicreports.report.builder.HyperLinkBuilder;
 import net.sf.dynamicreports.report.builder.ReportTemplateBuilder;
 import net.sf.dynamicreports.report.builder.component.ComponentBuilder;
 import net.sf.dynamicreports.report.builder.datatype.BigDecimalType;
+import net.sf.dynamicreports.report.builder.style.FontBuilder;
 import net.sf.dynamicreports.report.builder.style.StyleBuilder;
 import net.sf.dynamicreports.report.builder.tableofcontents.TableOfContentsCustomizerBuilder;
 import net.sf.dynamicreports.report.constant.HorizontalTextAlignment;

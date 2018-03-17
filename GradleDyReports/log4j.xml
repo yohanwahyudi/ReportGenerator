@@ -25,7 +25,7 @@
 	
 	<!-- Loggers -->
 	<logger name="org.springframework">
-		<level value="warn" />
+		<level value="debug" />
 	</logger>	
 	<logger name="net.sf.jasperreports">
 		<level value="error" />
