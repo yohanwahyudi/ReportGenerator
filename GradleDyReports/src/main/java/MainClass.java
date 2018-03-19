@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.vdi.tools.FileTools;
 import com.vdi.tools.GetHttpURLData;
@@ -15,6 +16,7 @@ import com.vdi.tools.SendMail;
 public class MainClass {
 	
 	private static final Logger logger = Logger.getLogger(MainClass.class);
+	private static AnnotationConfigApplicationContext context;
 	
 	public static void main(String args[]) {
 		DOMConfigurator.configure(System.getProperty("user.dir") + File.separator + "log4j.xml");
@@ -23,8 +25,9 @@ public class MainClass {
 		logger.debug("start process...");
 		
 		try {
-//			JsoupParse parse = new JsoupParse(GetHttpURLData.readUrl("http://172.17.6.21/itop/web/api/Query1_8b09fc98eb98edcff9700ee747064cd6.php"));
-			JsoupParse parse = new JsoupParse(FileTools.readFile("mar.txt"));
+			JsoupParse parse = new JsoupParse(GetHttpURLData.readUrl("http://172.17.6.21/itop/web/api/Query1_8b09fc98eb98edcff9700ee747064cd6.php"));
+//			JsoupParse parse = new JsoupParse(FileTools.readFile("mar.txt"));
+			
 			mapper = new JsoupMapper(parse.getRecordsList(), "daily");
 
 			int size = 0;
