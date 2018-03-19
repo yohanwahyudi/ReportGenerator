@@ -18,7 +18,8 @@ public class JsoupParse1 {
 	@Value("${jsoup.organization1}")
 	private String ORGANIZATION1;
 	
-	
+	@Value("${jsoup.organization2}")
+	private final String ORGANIZATION2=null;
 	
 	@Autowired
 	public JsoupParse1(@Value("${jsoup.organization2}") String val, @Value("${jsoup.urlData}") String val2) {
@@ -29,7 +30,7 @@ public class JsoupParse1 {
 	
 	public String getOrganization1() {
 		
-		logger.debug(ORGANIZATION1);
+		logger.debug(ORGANIZATION2);
 		return ORGANIZATION1;
 	}
 	
