@@ -47,6 +47,7 @@ dependencies {
 	compile('org.springframework:spring-jdbc:4.3.13.RELEASE')
 	compile('org.springframework:spring-oxm:4.3.13.RELEASE')
 	compile('org.springframework:spring-context-support:4.3.13.RELEASE')
+	compile('org.springframework:spring-webmvc:4.3.13.RELEASE')
 	//springbatch
 	compile('org.springframework.batch:spring-batch-core:4.0.0.RELEASE')
 	compile('org.springframework.batch:spring-batch-infrastructure:4.0.0.RELEASE')

@@ -14,12 +14,16 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 public class GetHttpURLData {
 
-	private static final int timeout = 30;
-	private static final int maxPool = 10;
-	private static final int maxPerRoute = 10;
+	private static final int timeout=30;
+	private static final int maxPool=10;
+	private static final int maxPerRoute=10;
+	
 	private static final Logger logger = Logger.getLogger(GetHttpURLData.class);
 
 	public static HttpClient init() {

@@ -40,7 +40,7 @@ public class JsoupParse {
 	public Elements parseTableTr(String data) {
 		Elements rowsData;
 		Document doc = Jsoup.parse(data);
-		
+//		logger.debug("doc: "+doc);
 		Element table = doc.select("table").get(0);
 		rowsData = table.select("tr");
 		

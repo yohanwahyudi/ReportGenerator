@@ -30,10 +30,10 @@ public class SendMail {
 
 	public void mail() {
 		// Recipient's email ID needs to be mentioned.
-		String to = "yohan.wahyudi@visionet.co.id, wahyudi.yohan1@gmail.com";
+		String to = "yohan.wahyudi@visionet.co.id,robbie.morgan.int@visionet.co.id";
 		
 		// Sender's email ID needs to be mentioned
-		String from = "vice@visionet.co.id";
+		String from = "yohan.wahyudi@visionet.co.id";
 
 		// Assuming you are sending email from localhost
 		String host = "10.10.8.158";
