@@ -14,6 +14,7 @@ import com.vdi.jsoup.JsoupMapper;
 import com.vdi.jsoup.JsoupParse;
 import com.vdi.reports.ReportGenerator;
 import com.vdi.tools.GetHttpURLData;
+import com.vdi.tools.SendMail;
 
 
 public class MDSProcessDaily extends QuartzJobBean{
@@ -46,7 +47,7 @@ public class MDSProcessDaily extends QuartzJobBean{
 
 				new ReportGenerator(mapper.getIncident(), filename);
 
-//				new SendMail(filename);
+				new SendMail(filename);
 			}
 			
 			logger.debug("process finished...");

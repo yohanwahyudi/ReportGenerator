@@ -9,17 +9,17 @@
 	</bean>
 
 	
-	<!-- Cron Trigger, run every 5 seconds -->
-	<bean id="cronTriggerJobA" 
+	<!-- Cron Trigger, run daily every 15:00 -->
+	<bean id="cronTriggerMDSDailyJob" 
                 class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-		<property name="jobDetail" ref="JobA" />
-		<property name="cronExpression" value="0 0/1 * * * ?" />
+		<property name="jobDetail" ref="MDSDailyJob" />
+		<property name="cronExpression" value="0 0 15 * * ? *" />
 	</bean>
 	
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				<ref bean="cronTriggerJobA" />
+				<ref bean="cronTriggerMDSDailyJob" />
 			</list>
 		</property>
 	</bean>
