@@ -1,3 +1,5 @@
+package com.vdi.batch.mds;
+
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,9 +15,10 @@ import com.vdi.jsoup.JsoupParse;
 import com.vdi.reports.ReportGenerator;
 import com.vdi.tools.GetHttpURLData;
 
+
 public class MDSProcessDaily extends QuartzJobBean{
 
-	private static final Logger logger = Logger.getLogger(MainClass.class);
+	private static final Logger logger = Logger.getLogger(MDSProcessDaily.class);
 	
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
