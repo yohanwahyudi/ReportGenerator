@@ -45,7 +45,8 @@ public class ReportGenerator {
 		try {
 
 			TemplatesNonStatic templates = new TemplatesNonStatic();
-			path = "F:\\work\\work\\Git\\SLAReport\\GradleDyReports\\reports\\mds\\";
+//			path = "F:\\work\\work\\Git\\SLAReport\\GradleDyReports\\reports\\mds\\";
+			path = "/data/temp/reports/mds/";
 			
 			File theDir = new File(path);
 			if(!theDir.exists()) {

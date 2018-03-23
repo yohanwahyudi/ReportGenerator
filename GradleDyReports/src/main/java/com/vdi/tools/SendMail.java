@@ -79,7 +79,8 @@ public class SendMail {
 
 			// Part two is attachment
 			BodyPart messageAttachmentBodyPart = new MimeBodyPart();
-			path = "F:\\work\\work\\Git\\SLAReport\\GradleDyReports\\reports\\mds\\"; 
+//			path = "F:\\work\\work\\Git\\SLAReport\\GradleDyReports\\reports\\mds\\"; 
+			path = "/data/temp/reports/mds/";
 			DataSource source = new FileDataSource(path+filename);
 			messageAttachmentBodyPart.setDataHandler(new DataHandler(source));
 			messageAttachmentBodyPart.setFileName(filename);
