@@ -30,7 +30,7 @@ public class SendMail {
 
 	public void mail() {
 		// Recipient's email ID needs to be mentioned.
-		String to = "yohan.wahyudi@visionet.co.id,robbie.morgan.int@visionet.co.id";
+		String to = "yohan.wahyudi@visionet.co.id,robbie.morgan.int@visionet.co.id,herman@visionet.co.id";
 		
 		// Sender's email ID needs to be mentioned
 		String from = "yohan.wahyudi@visionet.co.id";

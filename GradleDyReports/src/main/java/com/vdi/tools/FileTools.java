@@ -20,7 +20,7 @@ public final class FileTools {
 //	private static final double bufferSize = (Math.pow(1024, 2));
 	private static final Logger logger = Logger.getLogger(FileTools.class);
 	
-	private FileTools() {
+	public FileTools() {
 		DOMConfigurator.configure(System.getProperty("user.dir")+File.separator+"log4j.xml");
 		logger.debug("enter cons FileTools");
 	}

@@ -24,16 +24,21 @@
 	</appender>
 	
 	<!-- Loggers -->
-	<logger name="org.springframework">
+	<logger name="org.springframework.core">
+		<level value="info" />
+	</logger>
+	<logger name="org.springframework.context">
+		<level value="info" />
+	</logger>
+	<logger name="org.springframework.beans.factory">
 		<level value="debug" />
-	</logger>	
+	</logger>			
 	<logger name="net.sf.jasperreports">
 		<level value="error" />
 	</logger>	
 	<logger name="org.apache.http">
 		<level value="info" />
-	</logger>
-		
+	</logger>		
 	<logger name="java.io">
 		<level value="error" />
 	</logger>
