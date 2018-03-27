@@ -1,4 +1,4 @@
-package com.vdi.tools;
+package com.vdi.configuration;
 
 public final class PropertyNames {
 	
@@ -12,12 +12,18 @@ public final class PropertyNames {
 	public static final String MDS_JSOUP_TTRDEADLINE_COL = "${mds.jsoup.ttrdeadline.col}";
 	public static final String MDS_JSOUP_STATUS_COL = "${mds.jsoup.status.col}";
 	public static final String MDS_JSOUP_FILE = "${mds.jsoup.file}";
+	public static final String MDS_EMAIL_DAILY_TO = "mds.daily.email.to";
 	public static final String MDS_HTTP_URL = "${mds.http.url}";
+	public static final String MDS_EMAIL_DAILY_SUBJECT = "mds.daily.email.subject";
 	
-	public static final String HTTP_TIMEOUT = "${http.timeout}";
-	public static final String HTTP_MAXPOOL = "${http.maxpool}";
-	public static final String HTTP_MAXPERROUTE = "${http.maxperroute}";
+	public static final String HTTP_TIMEOUT = "http.timeout";
+	public static final String HTTP_MAXPOOL = "http.maxpool";
+	public static final String HTTP_MAXPERROUTE = "http.maxperroute";
 	
-	
+	public static final String MAIL_HOST = "mail.host";
+	public static final String MAIL_PORT = "mail.port";
+	public static final String MAIL_FROM = "mail.from";
+	public static final String MAIL_TO = "mail.to";
+		
 
 }

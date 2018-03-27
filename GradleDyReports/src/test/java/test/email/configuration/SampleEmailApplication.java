@@ -1,5 +1,9 @@
 package test.email.configuration;
 
+import java.io.File;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 
@@ -8,8 +12,12 @@ import test.email.model.ProductOrder;
 import test.email.service.OrderService;
 
 public class SampleEmailApplication {
+	
+	private static final Logger logger = Logger.getLogger(SampleEmailApplication.class);
 
 	public static void main(String[] args) {
+		DOMConfigurator.configure(System.getProperty("user.dir")+File.separator+"log4j.xml");
+		
 		AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
 		OrderService orderService = (OrderService) context.getBean("orderService");
@@ -26,8 +34,11 @@ public class SampleEmailApplication {
 		CustomerInfo customerInfo = new CustomerInfo();
 		customerInfo.setName("Websystique Admin");
 		customerInfo.setAddress("WallStreet");
-		customerInfo.setEmail("websystique@gmail.com");
+		customerInfo.setEmail("wahyudi.yohan1@gmail.com");
+		
 		order.setCustomerInfo(customerInfo);
+		
+		
 		return order;
 	}
 

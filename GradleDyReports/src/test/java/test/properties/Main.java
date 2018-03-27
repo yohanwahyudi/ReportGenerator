@@ -24,6 +24,9 @@ public class Main {
 		YourClass yc = ctx2.getBean(YourClass.class);
 		yc.printMyClass();
 		
+		MyClass mc = ctx2.getBean(MyClass.class);
+		System.out.println("timeout: "+mc.getHttpTimeout());
+		
 //		AnnotationConfigApplicationContext ctx1 = new AnnotationConfigApplicationContext(IOTools.class);
 //		String a = ctx1.getBean("readFile",String.class);
 //		String b = ctx1.getBean("readUrl",String.class);

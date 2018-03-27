@@ -52,4 +52,6 @@ dependencies {
 	//springbatch
 	compile('org.springframework.batch:spring-batch-core:4.0.0.RELEASE')
 	compile('org.springframework.batch:spring-batch-infrastructure:4.0.0.RELEASE')
+	
+	compile('javax.servlet:javax.servlet-api:4.0.0')
 }

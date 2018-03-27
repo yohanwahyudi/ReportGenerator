@@ -30,7 +30,7 @@ public class SendMail {
 
 	public void mail() {
 		// Recipient's email ID needs to be mentioned.
-		String to = "yohan.wahyudi@visionet.co.id,robbie.morgan.int@visionet.co.id,herman@visionet.co.id";
+		String to = "yohan.wahyudi@visionet.co.id,robbie.morgan.int@visionet.co.id,herman.lie@visionet.co.id";
 		
 		// Sender's email ID needs to be mentioned
 		String from = "yohan.wahyudi@visionet.co.id";
@@ -80,7 +80,7 @@ public class SendMail {
 			// Part two is attachment
 			BodyPart messageAttachmentBodyPart = new MimeBodyPart();
 //			path = "F:\\work\\work\\Git\\SLAReport\\GradleDyReports\\reports\\mds\\"; 
-			path = "/data/temp/reports/mds/";
+			path = "/data/slareport/reports/mds/";
 			DataSource source = new FileDataSource(path+filename);
 			messageAttachmentBodyPart.setDataHandler(new DataHandler(source));
 			messageAttachmentBodyPart.setFileName(filename);

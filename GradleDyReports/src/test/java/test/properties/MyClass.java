@@ -17,7 +17,7 @@ public final class MyClass {
 	private final int organizationCol;
 
 	@Autowired
-	public MyClass(@Value("${jsoup.organization.col}") int organizationcol, @Value("${http.timeout}") String httpTimeout, @Value("${jsoup.organization}") String[] organization) {
+	public MyClass(@Value("${mds.jsoup.organization.col}") int organizationcol, @Value("${http.timeout}") String httpTimeout, @Value("${mds.jsoup.organization}") String[] organization) {
 		System.out.println("Enter myclass constructor");
 		
 		this.organizationCol=organizationcol;

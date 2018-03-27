@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @PropertySource("classpath:config.properties")
 public class YourClass {
 	
-	@Value("${daily.prefix}")
+	@Value("${mds.daily.prefix}")
 	private String dailyPrefix;
 	
 //	@Autowired

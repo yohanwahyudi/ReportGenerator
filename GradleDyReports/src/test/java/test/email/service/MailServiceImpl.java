@@ -79,7 +79,7 @@ public class MailServiceImpl implements MailService {
 		StringBuffer content = new StringBuffer();
 		try {
 			content.append(VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
-					"/vmtemplates/velocity_mailTemplate.vm", model));
+					"/test/mail/vmtemplates/velocity_mailTemplate.vm", model));
 			return content.toString();
 		} catch (Exception e) {
 			System.out.println("Exception occured while processing velocity template:" + e.getMessage());

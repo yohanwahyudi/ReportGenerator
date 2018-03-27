@@ -22,40 +22,43 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
+import com.vdi.configuration.PropertyNames;
 import com.vdi.model.Incident;
 
-@Configuration
+//@Component
+@ComponentScan("com.vdi.tools")
 @PropertySource("classpath:config.properties")
-public class IOTools {
+public final class IOTools {
 	
 	private static final Logger logger = Logger.getLogger(FileTools.class);
 //	private static final double bufferSize = (Math.pow(1024, 2));
 	
-	@Value("${jsoup.file}")
-	private final String file=null;
 	
-	@Value("${http.timeout}")
-	private final int timeout=60;
-	
-	@Value("${http.maxpool}")
-	private final int maxPool=1;
-	
-	@Value("${http.maxperroute}")
-	private final int maxPerRoute=1;
-	
-	@Value("${http.url}")
-	private final String url=null;
+	private final String file;		
+	private final int timeout;	
+	private final int maxPool;	
+	private final int maxPerRoute;	
+	private final String url;
 	
 	
-	public IOTools() {
+	public IOTools(@Value(PropertyNames.MDS_JSOUP_FILE)String file, @Value(PropertyNames.HTTP_TIMEOUT)int timeout, 
+			@Value(PropertyNames.HTTP_MAXPOOL) int maxPool, @Value(PropertyNames.HTTP_MAXPERROUTE) int maxPerRoute, 
+			@Value(PropertyNames.MDS_HTTP_URL) String url) {
 		DOMConfigurator.configure(System.getProperty("user.dir")+File.separator+"log4j.xml");
-		logger.debug("enter cons FileTools");		
+		logger.debug("enter cons FileTools");
+		
+		this.file=file;
+		this.timeout = timeout;
+		this.maxPool=maxPool;
+		this.maxPerRoute = maxPerRoute;
+		this.url=url;
 	}
 	
-	@Bean("readFile")
+//	@Bean("readFile")
 	public String readFile() {		
 		logger.debug("read file "+file);
 		StringBuilder sBuilder = new StringBuilder();
@@ -182,7 +185,7 @@ public class IOTools {
 		return client.build();
 	}
 	
-	@Bean("readUrl")
+//	@Bean("readUrl")
 	public String readUrl() {
 		// init
 		HttpClient client = init();
