@@ -1,4 +1,4 @@
-package com.vdi.batch.service;
+package com.vdi.batch.mds.service;
 
 public interface MailService {
 	

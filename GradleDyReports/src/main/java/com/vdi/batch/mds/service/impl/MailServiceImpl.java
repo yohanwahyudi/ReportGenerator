@@ -1,4 +1,4 @@
-package com.vdi.batch.service.impl;
+package com.vdi.batch.mds.service.impl;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -18,13 +18,13 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
-import com.vdi.batch.service.MailService;
+import com.vdi.batch.mds.service.MailService;
 import com.vdi.configuration.AppConfig;
 
 import freemarker.template.Configuration;
 
 @Service("mailService")
-@ComponentScan("com.vdi")
+@ComponentScan("com.vdi.batch.mds.service")
 public class MailServiceImpl implements MailService{
 
 	@Autowired

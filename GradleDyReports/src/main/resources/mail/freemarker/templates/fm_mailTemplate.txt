@@ -1,0 +1,19 @@
+<html>
+
+    <body>
+        Dear All,
+
+        <div>
+            attached support agent daily monitoring for today's incident which is <b>new/pending/assigned/approaching</b> deadline.
+        </div>
+        <br />
+        <br />
+        
+        <#list list as list>
+		    <h2>${list_index + 1}. ${list} </h2><br />
+		</#list>
+        
+        <span>Regards, <br /></span>
+        <span>Yohan W</span>
+    </body>
+</html>

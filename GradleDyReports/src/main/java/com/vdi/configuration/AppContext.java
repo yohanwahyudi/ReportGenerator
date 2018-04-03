@@ -17,6 +17,7 @@ public class AppContext {
 
 	@Bean
 	static PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer() {
+		System.out.println("propertysourceplaceholder");
         return new PropertySourcesPlaceholderConfigurer();
     }
 }

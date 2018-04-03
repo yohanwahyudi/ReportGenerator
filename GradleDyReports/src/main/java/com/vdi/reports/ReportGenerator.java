@@ -95,7 +95,7 @@ public class ReportGenerator {
 		DRDataSource dataSource = new DRDataSource("ref", "title", "status", "start_date", "priority","ttr_deadline","agent_fullname");
 		
 		for (Incident row:list) {
-			dataSource.add(row.getRef(), row.getTitle(), row.getStatus(), row.getStart_date(), row.getPriority(), row.getTtr_deadline(), row.getAgent_fullname());
+			dataSource.add(row.getRef(), row.getTitle(), row.getStatus(), (row.getStart_date()+" "+row.getStart_time()), row.getPriority(), row.getTtr_deadline(), row.getAgent_fullname());
 		}
 		
 		return dataSource;

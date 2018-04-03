@@ -20,45 +20,43 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Service;
 
+import com.vdi.configuration.AppConfig;
 import com.vdi.configuration.PropertyNames;
 import com.vdi.model.Incident;
 
-//@Component
-@ComponentScan("com.vdi.tools")
-@PropertySource("classpath:config.properties")
-public final class IOTools {
+@Service("ioTools")
+@ComponentScan({"com.vdi.tools","com.vdi.configuration"})
+public class IOToolsServiceImpl implements IOToolsService{
 	
-	private static final Logger logger = Logger.getLogger(FileTools.class);
+	private static final Logger logger = Logger.getLogger(IOToolsServiceImpl.class);
 //	private static final double bufferSize = (Math.pow(1024, 2));
 	
+	private String file;
+	private int timeout;
+	private int maxPool;
+	private int maxPerRoute;
+	private String url;
 	
-	private final String file;		
-	private final int timeout;	
-	private final int maxPool;	
-	private final int maxPerRoute;	
-	private final String url;
-	
-	
-	public IOTools(@Value(PropertyNames.MDS_JSOUP_FILE)String file, @Value(PropertyNames.HTTP_TIMEOUT)int timeout, 
-			@Value(PropertyNames.HTTP_MAXPOOL) int maxPool, @Value(PropertyNames.HTTP_MAXPERROUTE) int maxPerRoute, 
-			@Value(PropertyNames.MDS_HTTP_URL) String url) {
-		DOMConfigurator.configure(System.getProperty("user.dir")+File.separator+"log4j.xml");
-		logger.debug("enter cons FileTools");
+	@Autowired	
+	public IOToolsServiceImpl(AppConfig appConfig) {
+		DOMConfigurator.configure(appConfig.getLog4JXmlLocation());
 		
-		this.file=file;
-		this.timeout = timeout;
-		this.maxPool=maxPool;
-		this.maxPerRoute = maxPerRoute;
-		this.url=url;
+		logger.debug("enter cons IOTools");
+		
+		this.file = appConfig.getMdsFileSource();
+		this.timeout = appConfig.getHttpTimeout();
+		this.maxPool = appConfig.getHttpMaxPool();
+		this.maxPerRoute = appConfig.getHttpMaxPerRoute();
+		this.url = appConfig.getMdsHttpUrl();
 	}
 	
-//	@Bean("readFile")
+	@Bean("readFile")
 	public String readFile() {		
 		logger.debug("read file "+file);
 		StringBuilder sBuilder = new StringBuilder();
@@ -77,6 +75,8 @@ public final class IOTools {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (Exception e){
+			e.printStackTrace();
 		} finally {
 			try {
 				br.close();
@@ -88,12 +88,12 @@ public final class IOTools {
 		return sBuilder.toString();
 	}
 	
-	public String readFile(String file) {
-		logger.debug("read file "+file);
+	public String readFile(String filePath) {
+		logger.debug("read file "+filePath);
 		StringBuilder sBuilder = new StringBuilder();
 		BufferedReader br = null;
 		try {
-			FileReader fileReader = new FileReader(file);
+			FileReader fileReader = new FileReader(filePath);
 			br = new BufferedReader(fileReader);
 
 			String str = "";
@@ -105,6 +105,8 @@ public final class IOTools {
 		} catch(FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
 			try {
