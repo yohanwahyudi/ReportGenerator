@@ -2,13 +2,7 @@ import java.io.File;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.vdi.batch.mds.service.MailService;
-import com.vdi.configuration.AppConfig;
-import com.vdi.configuration.AppContext;
 
 public class MainClass {
 	private static final Logger logger = Logger.getLogger(MainClass.class);
@@ -18,10 +12,9 @@ public class MainClass {
 		DOMConfigurator.configure(System.getProperty("user.dir") + File.separator + "log4j.xml");
 		
 		logger.debug("Batch started...");
-		AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 		
 		
-//		classPathXmlApplicationContext = new ClassPathXmlApplicationContext("Spring-Quartz.xml");
+		classPathXmlApplicationContext = new ClassPathXmlApplicationContext("Spring-Quartz.xml");
 		
 		
 //		MailService mail = (MailService) context.getBean("mailService");

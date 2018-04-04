@@ -234,7 +234,7 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 
 	@Bean
 	@Override
-	public List<Incident> JsoupMapperDaily() {
+	public List<Incident> getJsoupMapperDaily() {
 		List<List<String>> input = jsoupTrToListVisionetByUrl();
 		
 		List<Incident> listIncident = JsoupMapperListtoIncident(input);
@@ -283,7 +283,7 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 			}
 
 		}
-		logger.debug("Daily List size: " + temp.size());
+		logger.debug("Daily list size: "+temp.size());
 		return temp;
 
 	}
