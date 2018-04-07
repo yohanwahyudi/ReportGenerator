@@ -13,4 +13,7 @@ public interface JsoupParseService {
 	public List<List<String>> jsoupTrToListVisionetByUrl();
 	public List<List<String>> jsoupTrToListVisionetByFile();
 	public List<Incident> getJsoupMapperDaily(); 
+	
+	public List<Incident> getDailyDeadlineList();
+	public List<Incident> getDailyAssignPendingList();
 }

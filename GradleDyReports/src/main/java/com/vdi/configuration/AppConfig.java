@@ -28,7 +28,7 @@ public final class AppConfig {
 	private final String mailHost;
 	private final int mailPort;
 	private final String mailFrom;
-	private final String mailToMdsDaily;
+	private final String[] mailToMdsDaily;
 	private final String mailMdsDailySubject;
 	
 	//mds config
@@ -55,7 +55,7 @@ public final class AppConfig {
 		this.mailHost = env.getRequiredProperty(PropertyNames.MAIL_HOST,String.class);
 		this.mailPort = env.getRequiredProperty(PropertyNames.MAIL_PORT, Integer.class);
 		this.mailFrom = env.getRequiredProperty(PropertyNames.MAIL_FROM,String.class);
-		this.mailToMdsDaily = env.getRequiredProperty(PropertyNames.MDS_EMAIL_DAILY_TO,String.class);
+		this.mailToMdsDaily = env.getRequiredProperty(PropertyNames.MDS_EMAIL_DAILY_TO,String[].class);
 		this.mailMdsDailySubject = env.getRequiredProperty(PropertyNames.MDS_EMAIL_DAILY_SUBJECT,String.class);
 		this.mdsDailyReportPath = env.getRequiredProperty(PropertyNames.MDS_DAILY_REPORT_PATH, String.class);
 		this.mdsFileSource = env.getRequiredProperty(PropertyNames.MDS_JSOUP_FILE, String.class);
@@ -90,7 +90,7 @@ public final class AppConfig {
 	@Bean
 	public FreeMarkerConfigurationFactoryBean getFreeMarkerConfiguration() {
 		FreeMarkerConfigurationFactoryBean bean = new FreeMarkerConfigurationFactoryBean();
-		bean.setTemplateLoaderPath("classpath:/mail/freemarker/templates/");
+		bean.setTemplateLoaderPath("/mail/freemarker/templates/");
 		return bean;
 	}
 
@@ -106,7 +106,7 @@ public final class AppConfig {
 		return mailFrom;
 	}
 
-	public String getMailToMdsDaily() {
+	public String[] getMailToMdsDaily() {
 		return mailToMdsDaily;
 	}
 	

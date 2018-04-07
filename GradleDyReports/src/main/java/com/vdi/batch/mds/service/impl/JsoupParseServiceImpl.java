@@ -36,6 +36,9 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 
 	private final static Logger logger = Logger.getLogger(JsoupParseServiceImpl.class);
 	
+	private List<Incident> deadlineList;
+	private List<Incident> assignPendingList;
+	
 	@Autowired
 	private IOToolsService ioToolsService;
 
@@ -235,12 +238,13 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 	@Bean
 	@Override
 	public List<Incident> getJsoupMapperDaily() {
-		List<List<String>> input = jsoupTrToListVisionetByUrl();
-		
+		List<List<String>> input = jsoupTrToListVisionetByUrl();		
 		List<Incident> listIncident = JsoupMapperListtoIncident(input);
-
 		List<Incident> temp = new ArrayList<Incident>();
 
+		deadlineList = new ArrayList<Incident>();
+		assignPendingList = new ArrayList<Incident>();
+		
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.HOUR_OF_DAY, 0);
 		cal.set(Calendar.MINUTE, 0);
@@ -265,6 +269,9 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 						|| status.equalsIgnoreCase(PropertyNames.ESCALATED_TTR))) {
 					temp.add(incident);
 					added = Boolean.TRUE;
+					
+					//deadline line
+					deadlineList.add(incident);
 				}
 
 				if (dtNow.compareTo(sdf.parse(stDate)) == 0) {
@@ -273,6 +280,7 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 							|| status.trim().equalsIgnoreCase(PropertyNames.ESCALATED_TTR)) {
 						if (!added) {
 							temp.add(incident);
+							assignPendingList.add(incident);
 						}
 					}
 				}
@@ -284,6 +292,7 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 
 		}
 		logger.debug("Daily list size: "+temp.size());
+		
 		return temp;
 
 	}
@@ -386,6 +395,18 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 
 		return temp;
 
+	}
+	
+	@Override
+	@Bean
+	public List<Incident> getDailyDeadlineList(){
+		return deadlineList;
+	}
+	
+	@Override
+	@Bean
+	public List<Incident> getDailyAssignPendingList(){
+		return assignPendingList;
 	}
 
 }

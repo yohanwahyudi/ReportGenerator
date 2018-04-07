@@ -11,14 +11,10 @@ public class MainClass {
 	public static void main(String args[]) {
 		DOMConfigurator.configure(System.getProperty("user.dir") + File.separator + "log4j.xml");
 		
-		logger.debug("Batch started...");
-		
+		logger.debug("Batch started...");		
 		
 		classPathXmlApplicationContext = new ClassPathXmlApplicationContext("Spring-Quartz.xml");
 		
-		
-//		MailService mail = (MailService) context.getBean("mailService");
-//		mail.sendEmail();
 
 	}
 
