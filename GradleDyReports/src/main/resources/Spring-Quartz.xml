@@ -12,7 +12,7 @@
                 class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="BatchMDSDailyJob" />
 		<!--<property name="cronExpression" value="0 0 15 * * ? *" />-->
-		<property name="cronExpression" value="0/15 * * * * ?" />
+		<property name="cronExpression" value="0/35 * * * * ?" />
 	</bean>
 	
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">

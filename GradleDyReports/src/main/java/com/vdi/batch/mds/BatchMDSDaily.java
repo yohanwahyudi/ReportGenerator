@@ -14,6 +14,7 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
+import com.vdi.batch.mds.service.JsoupParseService;
 import com.vdi.batch.mds.service.MailService;
 import com.vdi.batch.mds.service.ReportGeneratorService;
 import com.vdi.configuration.AppContext;
@@ -32,9 +33,15 @@ public class BatchMDSDaily extends QuartzJobBean {
 		logger.debug("execute batch mds daily...");
 		annotationCtx = new AnnotationConfigApplicationContext(AppContext.class);
 		
-		List<Incident> allDailyList = (List<Incident>) annotationCtx.getBean("getJsoupMapperDaily", List.class);
-		List<Incident> deadlineList = (List<Incident>) annotationCtx.getBean("getDailyDeadlineList", List.class);
-		List<Incident> assignedPendingList = (List<Incident>) annotationCtx.getBean("getDailyAssignPendingList", List.class);
+		JsoupParseService jsoupParse = annotationCtx.getBean("jsoupParseServiceDailyMDS", JsoupParseService.class);
+		
+		List<Incident> allDailyList = (List<Incident>) jsoupParse.getIncidentAllByFile();
+		List<Incident> deadlineList = (List<Incident>) jsoupParse.getIncidentDeadline();
+		List<Incident> assignedPendingList = (List<Incident>) jsoupParse.getIncidentAssignPending();
+		
+//		List<Incident> allDailyList = (List<Incident>) annotationCtx.getBean("getIncidentAllByFileDaily", List.class);
+//		List<Incident> deadlineList = (List<Incident>) annotationCtx.getBean("getIncidentDeadline", List.class);
+//		List<Incident> assignedPendingList = (List<Incident>) annotationCtx.getBean("getIncidentAssignPending", List.class);
 
 		int size = allDailyList.size();
 		logger.debug("MDS daily list size: " + size);		
@@ -45,8 +52,8 @@ public class BatchMDSDaily extends QuartzJobBean {
 			String suffix = sdf.format(new java.util.Date());
 			String filename = prefix + suffix + ".pdf";
 			
-//			ReportGeneratorService reportService = annotationCtx.getBean("reportGeneratorService", ReportGeneratorService.class);
-//			reportService.buildDailyReport(allDailyList, filename);
+			ReportGeneratorService reportService = annotationCtx.getBean("reportGeneratorService", ReportGeneratorService.class);
+			reportService.buildDailyReport(allDailyList, filename);
 			
 			Map<String, Object> mapObject = new HashMap<String, Object>();
 			mapObject.put("deadline", deadlineList);

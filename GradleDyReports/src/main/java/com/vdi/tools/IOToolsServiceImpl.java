@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Writer;
+import java.net.ConnectException;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -56,7 +57,7 @@ public class IOToolsServiceImpl implements IOToolsService{
 		this.url = appConfig.getMdsHttpUrl();
 	}
 	
-	@Bean("readFile")
+	//@Bean("readFile")
 	public String readFile() {		
 		logger.debug("read file "+file);
 		StringBuilder sBuilder = new StringBuilder();
@@ -205,6 +206,8 @@ public class IOToolsServiceImpl implements IOToolsService{
 				sBuilder.append(line);
 			}
 
+		} catch (ConnectException e) {
+			e.printStackTrace();
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

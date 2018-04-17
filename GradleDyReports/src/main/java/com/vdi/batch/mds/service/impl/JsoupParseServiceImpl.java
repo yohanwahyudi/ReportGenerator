@@ -29,16 +29,16 @@ import com.vdi.jsoup.JsoupParse;
 import com.vdi.model.Incident;
 import com.vdi.tools.IOToolsService;
 
-@Service("jsoupParseService")
+@Service("jsoupParseServiceDailyMDS")
 @ComponentScan({ "com.vdi.batch.mds.service", "com.vdi.tools", "com.vdi.configuration" })
 
 public class JsoupParseServiceImpl implements JsoupParseService {
 
 	private final static Logger logger = Logger.getLogger(JsoupParseServiceImpl.class);
-	
+
 	private List<Incident> deadlineList;
 	private List<Incident> assignPendingList;
-	
+
 	@Autowired
 	private IOToolsService ioToolsService;
 
@@ -49,7 +49,7 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 	public JsoupParseServiceImpl(AppConfig appConfig) {
 		DOMConfigurator.configure(appConfig.getLog4JXmlLocation());
 	}
-	
+
 	public Elements parseTableTr(String data) {
 		Elements rowsData;
 		Document doc = Jsoup.parse(data);
@@ -66,100 +66,13 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 		Elements rows = parseTableTr(ioToolsService.readUrl());
 
 		if (rows != null && rows.size() > 0) {
-			
-			String[] organization = appConfig.getOrganization(); 
-			
+
+			String[] organization = appConfig.getOrganization();
+
 			String organization1 = organization[0];
 			String organization2 = organization[1];
 			int organizationCol = appConfig.getOrganizationCol();
-			
-			for (int i = 0; i < rows.size(); i++) {
-				Element row = rows.get(i);
-				Elements cols = row.select("td");				
 
-				if (organization1.equalsIgnoreCase((cols.get(organizationCol)).ownText())
-						|| organization2.equalsIgnoreCase((cols.get(organizationCol)).ownText())) {
-
-					List<String> record = new ArrayList<String>();
-
-					for (int j = 0; j < cols.size(); j++) {
-						Element col = cols.get(j);
-						List<?> temp = new ArrayList<Object>();
-
-						int size = col.childNodesCopy().size();
-
-						if (size > 1) {
-							StringBuffer sb = new StringBuffer();
-							temp = col.childNodesCopy();
-
-							Iterator<?> iter = temp.iterator();
-							while (iter.hasNext()) {
-								sb.append(iter.next());
-							}
-
-							record.add(sb.toString());
-						} else if (size < 1) {
-							record.add("");
-
-						} else {
-							temp = col.childNodes();
-							Iterator<?> iter = temp.iterator();
-							while (iter.hasNext()) {
-								Object value = iter.next();
-
-								if (value instanceof TextNode) {
-									record.add(value.toString());
-								} else if (value instanceof Element) {
-									Element element = (Element) value;
-
-									if (element != null) {
-										int size1 = element.childNodesCopy().size();
-										List<?> temp1 = new ArrayList<Object>();
-
-										if (size1 < 1) {
-											record.add("");
-										} else {
-											StringBuffer sb1 = new StringBuffer();
-											temp1 = new ArrayList<Object>();
-											temp1 = element.childNodesCopy();
-
-											Iterator<?> iter1 = temp1.iterator();
-											while (iter1.hasNext()) {
-												sb1.append(iter1.next().toString());
-											}
-
-											record.add(sb1.toString());
-
-										}
-
-									}
-
-								}
-							}
-						}
-
-					}
-					records.add(record);
-				}
-
-			}
-		}
-		
-		return records;
-	}
-
-	public List<List<String>> jsoupTrToListVisionetByFile() {
-
-		List<List<String>> records = new ArrayList<List<String>>();
-		Elements rows = parseTableTr(ioToolsService.readFile());
-
-		String[] organization = appConfig.getOrganization();
-		
-		String organization1 = organization[0];
-		String organization2 = organization[1];
-		int organizationCol = appConfig.getOrganizationCol();
-		
-		if (rows != null && rows.size() > 0) {
 			for (int i = 0; i < rows.size(); i++) {
 				Element row = rows.get(i);
 				Elements cols = row.select("td");
@@ -235,16 +148,104 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 		return records;
 	}
 
-	@Bean
+	public List<List<String>> jsoupTrToListVisionetByFile() {
+
+		List<List<String>> records = new ArrayList<List<String>>();
+		Elements rows = parseTableTr(ioToolsService.readFile());
+
+		String[] organization = appConfig.getOrganization();
+
+		if (rows != null && rows.size() > 0) {
+
+			String organization1 = organization[0];
+			String organization2 = organization[1];
+			int organizationCol = appConfig.getOrganizationCol();
+
+			for (int i = 0; i < rows.size(); i++) {
+				Element row = rows.get(i);
+				Elements cols = row.select("td");
+
+				if (organization1.equalsIgnoreCase((cols.get(organizationCol)).ownText())
+						|| organization2.equalsIgnoreCase((cols.get(organizationCol)).ownText())) {
+
+					List<String> record = new ArrayList<String>();
+
+					for (int j = 0; j < cols.size(); j++) {
+						Element col = cols.get(j);
+						List<?> temp = new ArrayList<Object>();
+
+						int size = col.childNodesCopy().size();
+
+						if (size > 1) {
+							StringBuffer sb = new StringBuffer();
+							temp = col.childNodesCopy();
+
+							Iterator<?> iter = temp.iterator();
+							while (iter.hasNext()) {
+								sb.append(iter.next());
+							}
+
+							record.add(sb.toString());
+						} else if (size < 1) {
+							record.add("");
+
+						} else {
+							temp = col.childNodes();
+							Iterator<?> iter = temp.iterator();
+							while (iter.hasNext()) {
+								Object value = iter.next();
+
+								if (value instanceof TextNode) {
+									record.add(value.toString());
+								} else if (value instanceof Element) {
+									Element element = (Element) value;
+
+									if (element != null) {
+										int size1 = element.childNodesCopy().size();
+										List<?> temp1 = new ArrayList<Object>();
+
+										if (size1 < 1) {
+											record.add("");
+										} else {
+											StringBuffer sb1 = new StringBuffer();
+											temp1 = new ArrayList<Object>();
+											temp1 = element.childNodesCopy();
+
+											Iterator<?> iter1 = temp1.iterator();
+											while (iter1.hasNext()) {
+												sb1.append(iter1.next().toString());
+											}
+
+											record.add(sb1.toString());
+
+										}
+
+									}
+
+								}
+							}
+						}
+
+					}
+					records.add(record);
+				}
+
+			}
+		}
+
+		return records;
+	}
+
+	//@Bean(name="getIncidentAllByURLDaily")
 	@Override
-	public List<Incident> getJsoupMapperDaily() {
-		List<List<String>> input = jsoupTrToListVisionetByUrl();		
+	public List<Incident> getIncidentAllByURL() {
+		List<List<String>> input = jsoupTrToListVisionetByUrl();
 		List<Incident> listIncident = JsoupMapperListtoIncident(input);
 		List<Incident> temp = new ArrayList<Incident>();
 
 		deadlineList = new ArrayList<Incident>();
 		assignPendingList = new ArrayList<Incident>();
-		
+
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.HOUR_OF_DAY, 0);
 		cal.set(Calendar.MINUTE, 0);
@@ -269,8 +270,8 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 						|| status.equalsIgnoreCase(PropertyNames.ESCALATED_TTR))) {
 					temp.add(incident);
 					added = Boolean.TRUE;
-					
-					//deadline line
+
+					// deadline line
 					deadlineList.add(incident);
 				}
 
@@ -291,11 +292,74 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 			}
 
 		}
-		logger.debug("Daily list size: "+temp.size());
-		
+		logger.debug("Daily list size: " + temp.size());
+
 		return temp;
 
 	}
+	
+	//@Bean(name="getIncidentAllByFileDaily")
+	@Override
+	public List<Incident> getIncidentAllByFile() {
+		List<List<String>> input = jsoupTrToListVisionetByFile();
+		List<Incident> listIncident = JsoupMapperListtoIncident(input);
+		List<Incident> temp = new ArrayList<Incident>();
+
+		deadlineList = new ArrayList<Incident>();
+		assignPendingList = new ArrayList<Incident>();
+
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+
+		Date dtNow = cal.getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		for (Iterator<?> iterator = (Iterator<?>) listIncident.iterator(); iterator.hasNext();) {
+			Incident incident = (Incident) iterator.next();
+			String status = incident.getStatus();
+			String stDate = incident.getStart_date();
+			String deadline = incident.getTtr_deadline();
+
+			try {
+				boolean isDeadline = isDeadline(deadline);
+				boolean added = Boolean.FALSE;
+
+				if (isDeadline && (status.trim().equalsIgnoreCase(PropertyNames.ASSIGNED)
+						|| status.trim().equalsIgnoreCase(PropertyNames.PENDING)
+						|| status.equalsIgnoreCase(PropertyNames.ESCALATED_TTR))) {
+					temp.add(incident);
+					added = Boolean.TRUE;
+
+					// deadline line
+					deadlineList.add(incident);
+				}
+
+				if (dtNow.compareTo(sdf.parse(stDate)) == 0) {
+					if (status.trim().equalsIgnoreCase(PropertyNames.ASSIGNED)
+							|| status.trim().equalsIgnoreCase(PropertyNames.PENDING)
+							|| status.trim().equalsIgnoreCase(PropertyNames.ESCALATED_TTR)) {
+						if (!added) {
+							temp.add(incident);
+							assignPendingList.add(incident);
+						}
+					}
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		logger.debug("Daily list size: " + temp.size());
+
+		return temp;
+
+	}
+
 
 	public Incident mapIncident(List<String> row) {
 
@@ -396,16 +460,16 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 		return temp;
 
 	}
-	
+
 	@Override
-	@Bean
-	public List<Incident> getDailyDeadlineList(){
+	//@Bean
+	public List<Incident> getIncidentDeadline() {
 		return deadlineList;
 	}
-	
+
 	@Override
-	@Bean
-	public List<Incident> getDailyAssignPendingList(){
+	//@Bean
+	public List<Incident> getIncidentAssignPending() {
 		return assignPendingList;
 	}
 

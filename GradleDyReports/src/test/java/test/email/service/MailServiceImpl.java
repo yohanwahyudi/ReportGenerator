@@ -1,6 +1,8 @@
 package test.email.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
@@ -58,8 +60,13 @@ public class MailServiceImpl implements MailService {
 				helper.setFrom("customerserivces@yourshop.com");
 				helper.setTo(order.getCustomerInfo().getEmail());
 
+				List<String> listString = new ArrayList();
+				listString.add("satu");
+				listString.add("dua");
+				
 				Map<String, Object> model = new HashMap<String, Object>();
-				model.put("order", order);
+				model.put("order1", order);
+				model.put("listString1", listString);
 
 				String text = geFreeMarkerTemplateContent(model);
 				System.out.println("Template content : " + text);
