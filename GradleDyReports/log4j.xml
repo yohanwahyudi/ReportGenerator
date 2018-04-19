@@ -4,7 +4,7 @@
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
-		<param name="Target" value="System.out" />
+		<!--<param name="Target" value="System.out" />-->
 		<layout class="org.apache.log4j.PatternLayout">
 			<!-- <param name="ConversionPattern" value="%d{ISO8601} %-5p  %c{1} - %m%n" /> -->
 			<param name="ConversionPattern" value="%d{HH:mm:ss.SSS} %-5p [%t][%c{1}] %m%n" />
@@ -14,12 +14,11 @@
 	<appender name="file" class="org.apache.log4j.RollingFileAppender">
 	   <param name="append" value="true" />
 	   <param name="maxFileSize" value="5MB" />
-	   <param name="maxBackupIndex" value="5" />
+	   <param name="maxBackupIndex" value="20" />
 	   <!-- For Tomcat -->
 	   <param name="file" value="logs/vdireport.log" />
 	   <layout class="org.apache.log4j.PatternLayout">
-		<param name="ConversionPattern"
-			value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+		<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
 	   </layout>
 	</appender>
 	
@@ -41,6 +40,10 @@
 	</logger>		
 	<logger name="java.io">
 		<level value="error" />
+	</logger>
+	
+	<logger name="com.vdi.batch.mds.service.impl.JsoupParseServiceImpl">
+		<level value="debug" />
 	</logger>
 		
 	<root>

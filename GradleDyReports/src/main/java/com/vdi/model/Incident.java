@@ -58,6 +58,7 @@ public class Incident {
 	private String hotflag_reason;
 	private String impact;
 	private String urgency;
+	private String email;
 	
 	public String getRef() {
 		return ref;
@@ -396,6 +397,12 @@ public class Incident {
 	}
 	public void setUrgency(String urgency) {
 		this.urgency = urgency;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 }

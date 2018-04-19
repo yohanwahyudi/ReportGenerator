@@ -16,5 +16,6 @@ public interface JsoupParseService {
 	public List<Incident> getIncidentAllByURL(); 
 	public List<Incident> getIncidentAllByFile();
 	public List<Incident> getIncidentDeadline();
-	public List<Incident> getIncidentAssignPending();
+	public List<Incident> getIncidentAssign();
+	public List<Incident> getIncidentPending();
 }

@@ -1,5 +1,6 @@
 package com.vdi.batch.mds.service.impl;
 
+import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,7 +38,8 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 	private final static Logger logger = Logger.getLogger(JsoupParseServiceImpl.class);
 
 	private List<Incident> deadlineList;
-	private List<Incident> assignPendingList;
+	private List<Incident> assignList;
+	private List<Incident> pendingList;
 
 	@Autowired
 	private IOToolsService ioToolsService;
@@ -76,7 +78,7 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 			for (int i = 0; i < rows.size(); i++) {
 				Element row = rows.get(i);
 				Elements cols = row.select("td");
-
+						
 				if (organization1.equalsIgnoreCase((cols.get(organizationCol)).ownText())
 						|| organization2.equalsIgnoreCase((cols.get(organizationCol)).ownText())) {
 
@@ -244,7 +246,8 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 		List<Incident> temp = new ArrayList<Incident>();
 
 		deadlineList = new ArrayList<Incident>();
-		assignPendingList = new ArrayList<Incident>();
+		assignList = new ArrayList<Incident>();
+		pendingList = new ArrayList<Incident>();
 
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.HOUR_OF_DAY, 0);
@@ -270,6 +273,15 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 						|| status.equalsIgnoreCase(PropertyNames.ESCALATED_TTR))) {
 					temp.add(incident);
 					added = Boolean.TRUE;
+					
+					//debug class with reflection
+//					for(Field field : incident.getClass().getDeclaredFields()) {
+//						field.setAccessible(true);
+//						String name = field.getName();
+//						Object val = field.get(incident);
+//						
+//						logger.debug(name+" : " +val);
+//					}
 
 					// deadline line
 					deadlineList.add(incident);
@@ -277,11 +289,14 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 
 				if (dtNow.compareTo(sdf.parse(stDate)) == 0) {
 					if (status.trim().equalsIgnoreCase(PropertyNames.ASSIGNED)
-							|| status.trim().equalsIgnoreCase(PropertyNames.PENDING)
-							|| status.trim().equalsIgnoreCase(PropertyNames.ESCALATED_TTR)) {
+							|| status.trim().equalsIgnoreCase(PropertyNames.PENDING)) {
 						if (!added) {
 							temp.add(incident);
-							assignPendingList.add(incident);
+							if(incident.getStatus().equalsIgnoreCase(PropertyNames.PENDING)) {
+								pendingList.add(incident);
+							}else {
+								assignList.add(incident);
+							}
 						}
 					}
 				}
@@ -292,7 +307,7 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 			}
 
 		}
-		logger.debug("Daily list size: " + temp.size());
+		logger.debug("All Incident Daily list size: " + temp.size());
 
 		return temp;
 
@@ -306,7 +321,8 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 		List<Incident> temp = new ArrayList<Incident>();
 
 		deadlineList = new ArrayList<Incident>();
-		assignPendingList = new ArrayList<Incident>();
+		assignList = new ArrayList<Incident>();
+		pendingList = new ArrayList<Incident>();
 
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.HOUR_OF_DAY, 0);
@@ -339,11 +355,14 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 
 				if (dtNow.compareTo(sdf.parse(stDate)) == 0) {
 					if (status.trim().equalsIgnoreCase(PropertyNames.ASSIGNED)
-							|| status.trim().equalsIgnoreCase(PropertyNames.PENDING)
-							|| status.trim().equalsIgnoreCase(PropertyNames.ESCALATED_TTR)) {
+							|| status.trim().equalsIgnoreCase(PropertyNames.PENDING)) {
 						if (!added) {
 							temp.add(incident);
-							assignPendingList.add(incident);
+							if(incident.getStatus().equalsIgnoreCase(PropertyNames.PENDING)) {
+								pendingList.add(incident);
+							}else {
+								assignList.add(incident);
+							}
 						}
 					}
 				}
@@ -354,7 +373,7 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 			}
 
 		}
-		logger.debug("Daily list size: " + temp.size());
+		logger.debug("All Incident Daily list size: " + temp.size());
 
 		return temp;
 
@@ -410,16 +429,17 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 		incident.setTtr(row.get(43));
 		incident.setSolution(row.get(44));
 		incident.setPerson_full_name(row.get(45));
-		incident.setPerson_org_short(row.get(46));
-		incident.setPerson_org_name(row.get(47));
-		incident.setUser_satisfaction(row.get(48));
-		incident.setUser_comment(row.get(49));
-		incident.setResolution_date(row.get(50));
-		incident.setResolution_time(row.get(51));
-		incident.setHotflag(row.get(52));
-		incident.setHotflag_reason(row.get(53));
-		incident.setImpact(row.get(54));
-		incident.setUrgency(row.get(55));
+		incident.setEmail(row.get(46));
+		incident.setPerson_org_short(row.get(47));
+		incident.setPerson_org_name(row.get(48));
+		incident.setUser_satisfaction(row.get(49));
+		incident.setUser_comment(row.get(50));
+		incident.setResolution_date(row.get(51));
+		incident.setResolution_time(row.get(52));
+		incident.setHotflag(row.get(53));
+		incident.setHotflag_reason(row.get(54));
+		incident.setImpact(row.get(55));
+		incident.setUrgency(row.get(56));
 
 		return incident;
 	}
@@ -464,13 +484,19 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 	@Override
 	//@Bean
 	public List<Incident> getIncidentDeadline() {
+				
 		return deadlineList;
 	}
 
 	@Override
 	//@Bean
-	public List<Incident> getIncidentAssignPending() {
-		return assignPendingList;
+	public List<Incident> getIncidentAssign() {
+		return assignList;
+	}
+	
+	@Override
+	public List<Incident> getIncidentPending() {
+		return pendingList;
 	}
 
 }

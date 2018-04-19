@@ -3,22 +3,34 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	
+	<!-- Cron Trigger, run on every day 15:00 -->
 	<bean name="BatchMDSDailyJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass" value="com.vdi.batch.mds.BatchMDSDaily" />
-	</bean>
-	
-	<!-- Cron Trigger, run daily every 15:00 -->
+	</bean>		
 	<bean id="cronTriggerBatchMDSDailyJob" 
                 class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="BatchMDSDailyJob" />
-		<!--<property name="cronExpression" value="0 0 15 * * ? *" />-->
-		<property name="cronExpression" value="0/35 * * * * ?" />
+		<property name="cronExpression" value="0 0 15 * * ? *" />
+		<!--<property name="cronExpression" value="0 0 15 ? * MON-FRI" />-->
+	</bean>
+	
+	
+	<!-- Cron Trigger, run on SAT-SUN every 12:00, 18:00 -->
+	<bean name="BatchMDSWeekendJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="com.vdi.batch.mds.BatchMDSDaily" />
+	</bean>	
+	<bean id="cronTriggerBatchMDSWeekendJob" 
+                class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="BatchMDSWeekendJob" />
+		<!--<<property name="cronExpression" value="0 0 12/18 * * ? *" />-->
+		<property name="cronExpression" value="0 0 12,18 ? * SAT-SUN" />
 	</bean>
 	
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
 				<ref bean="cronTriggerBatchMDSDailyJob" />
+				<ref bean="cronTriggerBatchMDSWeekendJob" />
 			</list>
 		</property>
 	</bean>
