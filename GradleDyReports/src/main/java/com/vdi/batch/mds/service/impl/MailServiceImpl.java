@@ -107,8 +107,8 @@ public class MailServiceImpl implements MailService{
 			
 			MimeMessageHelper helper = new MimeMessageHelper(message,true);
 			helper.setFrom(new InternetAddress(appConfig.getMailFrom(), "SLA Manager"));
-//			helper.setTo(toEmailList.toArray(new String[toEmailList.size()]));
-			helper.setTo(appConfig.getMailToMdsDaily());
+			helper.setTo(toEmailList.toArray(new String[toEmailList.size()]));
+//			helper.setTo(appConfig.getMailToMdsDaily());
 			helper.setSubject(appConfig.getMailMdsDailySubject());
 						
 			String text = getTemplateContentMdsDaily(mapObject);			
@@ -160,8 +160,8 @@ public class MailServiceImpl implements MailService{
 			
 			MimeMessageHelper helper = new MimeMessageHelper(message,true);
 			helper.setFrom(new InternetAddress(appConfig.getMailFrom(), "SLA Manager"));
-//			helper.setTo(toEmailList.toArray(new String[toEmailList.size()]));
-			helper.setTo(appConfig.getMailToMdsDaily());
+			helper.setTo(toEmailList.toArray(new String[toEmailList.size()]));
+//			helper.setTo(appConfig.getMailToMdsDaily());
 			helper.setSubject(appConfig.getMailMdsDailySubject());
 						
 			String text = getTemplateContentMdsWeekend(mapObject);			

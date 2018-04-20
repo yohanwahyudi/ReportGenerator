@@ -3,9 +3,9 @@
 	
 </head>
     <body>
-        Dear All,<br /><br />
+        <p style="font-family:calibri,serif;">Dear All,</p><br />
 
-        <div>
+        <div style="font-family:calibri,serif;">
             below are daily monitoring for today's incident which is <b>new/pending/assigned/approaching deadline</b>:
         </div>
         <br />
@@ -121,7 +121,7 @@
         <br />
         <br />
         
-        <span>Regards, </span><br /><br />
-        <span>SLA Manager</span><br /><br />
+        <span><p style="font-family:calibri,serif;">Regards, </p></span><br />
+        <span><p style="font-family:calibri,serif;">SLA Manager</p></span><br /><br />
     </body>
 </html>
