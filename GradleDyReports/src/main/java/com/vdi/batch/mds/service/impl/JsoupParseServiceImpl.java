@@ -26,7 +26,6 @@ import org.springframework.stereotype.Service;
 import com.vdi.batch.mds.service.JsoupParseService;
 import com.vdi.configuration.AppConfig;
 import com.vdi.configuration.PropertyNames;
-import com.vdi.jsoup.JsoupParse;
 import com.vdi.model.Incident;
 import com.vdi.tools.IOToolsService;
 

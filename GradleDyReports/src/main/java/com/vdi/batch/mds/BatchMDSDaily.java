@@ -67,7 +67,7 @@ public class BatchMDSDaily extends QuartzJobBean {
 				mapObject.put("pending", pendingList);
 
 				MailService mailService = annotationCtx.getBean("mailService", MailService.class);
-				mailService.sendEmail(mapObject);
+				mailService.sendEmail(mapObject,"fm_mailTemplateDaily.txt");
 			}
 		} else {
 			logger.debug("no incident ticket...");
