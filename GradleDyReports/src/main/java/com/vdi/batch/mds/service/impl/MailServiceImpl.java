@@ -111,7 +111,7 @@ public class MailServiceImpl implements MailService{
 						
 			String text = getTemplateContentMdsDaily(mapObject, template);			
 			
-			//logger.debug("email body: "+text);
+			logger.debug("email body: "+text);
 			
 			helper.setText(text, true);
 			mailSender.send(message);

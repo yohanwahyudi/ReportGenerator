@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
-import org.springframework.ui.velocity.VelocityEngineFactory;
+//import org.springframework.ui.velocity.VelocityEngineFactory;
 
 @SuppressWarnings("deprecation")
 @Configuration
@@ -53,15 +53,15 @@ public class AppConfig {
 		/*
 		 * Velocity configuration.
 		 */
-		@Bean
-		public VelocityEngine getVelocityEngine() throws VelocityException, IOException {
-			VelocityEngineFactory factory = new VelocityEngineFactory();
-			Properties props = new Properties();
-			props.put("resource.loader", "class");
-			props.put("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-
-			factory.setVelocityProperties(props);
-			return factory.createVelocityEngine();
-		}
+//		@Bean
+//		public VelocityEngine getVelocityEngine() throws VelocityException, IOException {
+//			VelocityEngineFactory factory = new VelocityEngineFactory();
+//			Properties props = new Properties();
+//			props.put("resource.loader", "class");
+//			props.put("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+//
+//			factory.setVelocityProperties(props);
+//			return factory.createVelocityEngine();
+//		}
 
 }

@@ -16,7 +16,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
-import org.springframework.ui.velocity.VelocityEngineUtils;
+//import org.springframework.ui.velocity.VelocityEngineUtils;
 import freemarker.template.Configuration;
 
 import test.email.model.ProductOrder;
@@ -82,17 +82,17 @@ public class MailServiceImpl implements MailService {
 		return preparator;
 	}
 
-	public String geVelocityTemplateContent(Map<String, Object> model) {
-		StringBuffer content = new StringBuffer();
-		try {
-			content.append(VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
-					"/test/mail/vmtemplates/velocity_mailTemplate.vm", model));
-			return content.toString();
-		} catch (Exception e) {
-			System.out.println("Exception occured while processing velocity template:" + e.getMessage());
-		}
-		return "";
-	}
+//	public String geVelocityTemplateContent(Map<String, Object> model) {
+//		StringBuffer content = new StringBuffer();
+//		try {
+//			content.append(VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
+//					"/test/mail/vmtemplates/velocity_mailTemplate.vm", model));
+//			return content.toString();
+//		} catch (Exception e) {
+//			System.out.println("Exception occured while processing velocity template:" + e.getMessage());
+//		}
+//		return "";
+//	}
 
 	public String geFreeMarkerTemplateContent(Map<String, Object> model) {
 		StringBuffer content = new StringBuffer();

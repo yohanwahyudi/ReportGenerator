@@ -307,6 +307,7 @@ public class JsoupParseServiceImpl implements JsoupParseService {
 
 		}
 		logger.debug("All Incident Daily list size: " + temp.size());
+		logger.debug("All Incident Daily list: " + temp);
 
 		return temp;
 
